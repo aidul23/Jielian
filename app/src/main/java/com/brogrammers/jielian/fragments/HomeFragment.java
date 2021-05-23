@@ -53,14 +53,28 @@ public class HomeFragment extends Fragment {
         slideModels.add(new SlideModel("https://image.shutterstock.com/image-photo/italian-food-background-pasta-meat-260nw-678135781.jpg"));
         binding.homeImageSlider.setImageList(slideModels, true);
 
-        binding.categoryRecyclerView.setLayoutManager(
-                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        );
+        LinearLayoutManager manager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
 
+        binding.categoryRecyclerView.setLayoutManager(manager);
         binding.categoryRecyclerView.setHasFixedSize(true);
-
         binding.categoryRecyclerView.setAdapter(
                 new CommonAdapter(getDummyList(), Constant.LAYOUT_TYPE_CATEGORY)
+        );
+
+        manager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+
+        binding.itemRecyclerView1.setLayoutManager(manager);
+        binding.itemRecyclerView1.setHasFixedSize(true);
+        binding.itemRecyclerView1.setAdapter(
+                new CommonAdapter(getDummyItemList(), Constant.LAYOUT_TYPE_ITEM)
+        );
+
+        manager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+
+        binding.itemRecyclerView2.setLayoutManager(manager);
+        binding.itemRecyclerView2.setHasFixedSize(true);
+        binding.itemRecyclerView2.setAdapter(
+                new CommonAdapter(getDummyItemList(), Constant.LAYOUT_TYPE_ITEM)
         );
 
     }
@@ -72,6 +86,16 @@ public class HomeFragment extends Fragment {
         categoryItems.add(new CategoryItem("Burger", "", "", ""));
         categoryItems.add(new CategoryItem("Fast Foods", "", "", ""));
         categoryItems.add(new CategoryItem("Indian", "", "", ""));
+        return categoryItems;
+    }
+
+    private List<CategoryItem> getDummyItemList() {
+        List<CategoryItem> categoryItems = new ArrayList<>();
+        categoryItems.add(new CategoryItem("Biriyani", "", "", "120"));
+        categoryItems.add(new CategoryItem("Pizza", "", "", "90"));
+        categoryItems.add(new CategoryItem("Burger", "", "", "500"));
+        categoryItems.add(new CategoryItem("Fast Foods", "", "", "900"));
+        categoryItems.add(new CategoryItem("Indian", "", "", "871"));
         return categoryItems;
     }
 }

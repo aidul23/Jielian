@@ -78,17 +78,12 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.CommonView
     @Override
     public int getItemViewType(int position) {
 
-        switch (type) {
-
-            case "layout-type-category":
-                return 0;
-
-            case "layout-type-item":
-                return 1;
-
-            case "layout-type-item-large":
-                return 2;
-
+        if (type.equals(Constant.LAYOUT_TYPE_CATEGORY)) {
+            return 0;
+        } else if (type.equals(Constant.LAYOUT_TYPE_ITEM)) {
+            return 1;
+        } else if (type.equals(Constant.LAYOUT_TYPE_ITEM_LARGE)) {
+            return 2;
         }
 
         return -1;
