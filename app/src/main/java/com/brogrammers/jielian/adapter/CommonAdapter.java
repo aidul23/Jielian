@@ -47,9 +47,13 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.CommonView
                 View itemView = inflater.inflate(R.layout.food_item_layout, parent, false);
                 return new CommonAdapter.CommonViewHolder(itemView);
 
-            default:
+            case 2:
                 View itemViewLarge = inflater.inflate(R.layout.food_item_layout_large, parent, false);
                 return new CommonAdapter.CommonViewHolder(itemViewLarge);
+
+            default:
+                View itemViewLarge2 = inflater.inflate(R.layout.food_item_layout_large_2, parent, false);
+                return new CommonAdapter.CommonViewHolder(itemViewLarge2);
         }
 
     }
@@ -63,7 +67,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.CommonView
 
         if (type.equals(Constant.LAYOUT_TYPE_ITEM)) {
             holder.foodItemPrice.setText(categoryItems.get(position).getPrice());
-        } else if (type.equals(Constant.LAYOUT_TYPE_ITEM_LARGE)) {
+        } else if (type.equals(Constant.LAYOUT_TYPE_ITEM_LARGE) || type.equals(Constant.LAYOUT_TYPE_ITEM_LARGE2)) {
             holder.foodItemPrice.setText(categoryItems.get(position).getPrice());
             holder.foodItemDescription.setText(categoryItems.get(position).getDescription());
         }
@@ -84,6 +88,8 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.CommonView
             return 1;
         } else if (type.equals(Constant.LAYOUT_TYPE_ITEM_LARGE)) {
             return 2;
+        } else if (type.equals(Constant.LAYOUT_TYPE_ITEM_LARGE2)) {
+            return 3;
         }
 
         return -1;

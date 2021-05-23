@@ -77,6 +77,19 @@ public class HomeFragment extends Fragment {
                 new CommonAdapter(getDummyItemList(), Constant.LAYOUT_TYPE_ITEM)
         );
 
+        manager = new LinearLayoutManager(requireContext()) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+
+        binding.itemRecyclerView3.setLayoutManager(manager);
+        binding.itemRecyclerView3.setHasFixedSize(true);
+        binding.itemRecyclerView3.setAdapter(
+                new CommonAdapter(getDummyItemList2(), Constant.LAYOUT_TYPE_ITEM_LARGE2)
+        );
+
     }
 
     private List<CategoryItem> getDummyList() {
@@ -96,6 +109,16 @@ public class HomeFragment extends Fragment {
         categoryItems.add(new CategoryItem("Burger", "", "", "500"));
         categoryItems.add(new CategoryItem("Fast Foods", "", "", "900"));
         categoryItems.add(new CategoryItem("Indian", "", "", "871"));
+        return categoryItems;
+    }
+
+    private List<CategoryItem> getDummyItemList2() {
+        List<CategoryItem> categoryItems = new ArrayList<>();
+        categoryItems.add(new CategoryItem("Biriyani", "", "Served with sauteed vegetables and onion rings and vegetable sauce, chicken broast, chicken masala, chicken shami kabab", "120"));
+        categoryItems.add(new CategoryItem("Pizza", "", "Served with sauteed vegetables and onion rings", "90"));
+        categoryItems.add(new CategoryItem("Burger", "", "Served with sauteed vegetables and onion rings", "500"));
+        categoryItems.add(new CategoryItem("Fast Foods", "", "Served with sauteed vegetables and onion rings", "900"));
+        categoryItems.add(new CategoryItem("Indian", "", "Served with sauteed vegetables and onion rings", "871"));
         return categoryItems;
     }
 }

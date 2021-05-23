@@ -8,4 +8,6 @@ public class Constant {
 
     public static String LAYOUT_TYPE_ITEM_LARGE = "layout-type-item-large";
 
+    public static String LAYOUT_TYPE_ITEM_LARGE2 = "layout-type-item-large2";
+
 }
