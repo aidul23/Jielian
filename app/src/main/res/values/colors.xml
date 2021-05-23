@@ -6,4 +6,8 @@
 
     <color name="colorApp">#150e56</color>
     <color name="colorApp1">#7b113a</color>
+
+    <color name="transparentBlack">#4D000000</color>
+
+
 </resources>
