@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/profileFragment"
+        android:title="Profile"
+        app:showAsAction="withText" />
+    <item
+        android:id="@+id/orderFragment"
+        android:title="Order"
+        app:showAsAction="withText" />
+    <item
+        android:id="@+id/faqFragment"
+        android:title="FAQ"
+        app:showAsAction="withText" />
+    <item
+        android:id="@+id/termsFragment"
+        android:title="Terms &amp; Conditions"
+        app:showAsAction="withText" />
+    <item
+        android:id="@+id/settingsFragment"
+        android:title="Settings"
+        app:showAsAction="withText" />
+    <item
+        android:title="Logout"
+        app:showAsAction="withText" />
+
+</menu>

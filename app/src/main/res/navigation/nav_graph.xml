@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.brogrammers.jielian.HomeFragment"
-        android:label="fragment_home"
+        android:name="com.brogrammers.jielian.fragments.HomeFragment"
+        android:label="Home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.brogrammers.jielian.CartFragment"
-        android:label="fragment_cart"
+        android:name="com.brogrammers.jielian.fragments.CartFragment"
+        android:label="Cart"
         tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/favouriteFragment"
-        android:name="com.brogrammers.jielian.FavouriteFragment"
-        android:label="fragment_favourite"
+        android:name="com.brogrammers.jielian.fragments.FavouriteFragment"
+        android:label="Favourite"
         tools:layout="@layout/fragment_favourite" />
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.brogrammers.jielian.MapFragment"
-        android:label="fragment_map"
+        android:name="com.brogrammers.jielian.fragments.MapFragment"
+        android:label="Map"
         tools:layout="@layout/fragment_map" />
 </navigation>
