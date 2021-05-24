@@ -6,10 +6,11 @@ public class CategoryItem implements Serializable {
 
     private final String title,
             imageUrl,
-            description,
-            price;
+            description;
 
-    public CategoryItem(String title, String imageUrl, String description, String price) {
+    private int price;
+
+    public CategoryItem(String title, String imageUrl, String description, int price) {
         this.title = title;
         this.imageUrl = imageUrl;
         this.description = description;
@@ -28,7 +29,7 @@ public class CategoryItem implements Serializable {
         return description;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 }

@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp">
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:clickable="true"
+    android:focusable="true">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/food_item_image_layout"
@@ -32,9 +35,12 @@
         android:id="@+id/item_detail_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintEnd_toStartOf="@id/food_item_price"
+        android:paddingStart="0dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="8dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/food_item_image_layout">
@@ -53,6 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:maxWidth="300dp"
             android:maxLines="2"
             android:paddingBottom="8dp"
             tools:text="Description" />
@@ -63,12 +70,12 @@
         android:id="@+id/food_item_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:maxLines="1"
-        android:padding="16dp"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@id/item_detail_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/item_detail_layout"
+        app:layout_constraintTop_toBottomOf="@id/food_item_image_layout"
         tools:text="250 TK" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

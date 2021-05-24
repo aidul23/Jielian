@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.brogrammers.jielian.R;
+import com.brogrammers.jielian.clicklisteners.OnItemClickListener;
 import com.brogrammers.jielian.constants.Constant;
 import com.brogrammers.jielian.model.CategoryItem;
 
@@ -31,6 +32,12 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.CommonView
         this.type = type;
     }
 
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     @NonNull
     @Override
     public CommonAdapter.CommonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,16 +51,16 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.CommonView
                 return new CommonAdapter.CommonViewHolder(categoryView);
 
             case 1:
-                View itemView = inflater.inflate(R.layout.food_item_layout, parent, false);
-                return new CommonAdapter.CommonViewHolder(itemView);
+                View foodItemView = inflater.inflate(R.layout.food_item_layout, parent, false);
+                return new CommonAdapter.CommonViewHolder(foodItemView);
 
             case 2:
-                View itemViewLarge = inflater.inflate(R.layout.food_item_layout_large, parent, false);
-                return new CommonAdapter.CommonViewHolder(itemViewLarge);
+                View foodItemViewLarge = inflater.inflate(R.layout.food_item_layout_large, parent, false);
+                return new CommonAdapter.CommonViewHolder(foodItemViewLarge);
 
             default:
-                View itemViewLarge2 = inflater.inflate(R.layout.food_item_layout_large_2, parent, false);
-                return new CommonAdapter.CommonViewHolder(itemViewLarge2);
+                View foodItemViewLarge2 = inflater.inflate(R.layout.food_item_layout_large_2, parent, false);
+                return new CommonAdapter.CommonViewHolder(foodItemViewLarge2);
         }
 
     }
@@ -66,11 +73,19 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.CommonView
         // TODO: 23/05/2021 set image to foodItemImage with glide
 
         if (type.equals(Constant.LAYOUT_TYPE_ITEM)) {
+            // TODO: 24/05/2021 use currency formatter 
             holder.foodItemPrice.setText(categoryItems.get(position).getPrice());
         } else if (type.equals(Constant.LAYOUT_TYPE_ITEM_LARGE) || type.equals(Constant.LAYOUT_TYPE_ITEM_LARGE2)) {
             holder.foodItemPrice.setText(categoryItems.get(position).getPrice());
             holder.foodItemDescription.setText(categoryItems.get(position).getDescription());
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onClick(categoryItems.get(position).getTitle(), type);
+            }
+        });
 
     }
 
