@@ -2,16 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/cartFragment"
-        android:icon="@drawable/shopping_cart"
-        android:title="Cart"
-        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/favouriteFragment"
         android:icon="@drawable/favorite"
         android:title="Favourite"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/cartFragment"
+        android:icon="@drawable/shopping_cart"
+        android:title="Cart"
         app:showAsAction="ifRoom" />
 
 </menu>
