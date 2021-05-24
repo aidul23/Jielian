@@ -14,9 +14,12 @@ import com.brogrammers.jielian.R;
 import com.brogrammers.jielian.clicklisteners.OnItemClickListener;
 import com.brogrammers.jielian.constants.Constant;
 import com.brogrammers.jielian.model.CategoryItem;
+import com.brogrammers.jielian.utility.StringUtility;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.NumberFormat;
+import java.util.Currency;
 import java.util.List;
 
 public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.CommonViewHolder> {
@@ -74,9 +77,9 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.CommonView
 
         if (type.equals(Constant.LAYOUT_TYPE_ITEM)) {
             // TODO: 24/05/2021 use currency formatter 
-            holder.foodItemPrice.setText(categoryItems.get(position).getPrice());
+            holder.foodItemPrice.setText(StringUtility.getFormattedString(categoryItems.get(position).getPrice()));
         } else if (type.equals(Constant.LAYOUT_TYPE_ITEM_LARGE) || type.equals(Constant.LAYOUT_TYPE_ITEM_LARGE2)) {
-            holder.foodItemPrice.setText(categoryItems.get(position).getPrice());
+            holder.foodItemPrice.setText(StringUtility.getFormattedString(categoryItems.get(position).getPrice()));
             holder.foodItemDescription.setText(categoryItems.get(position).getDescription());
         }
 

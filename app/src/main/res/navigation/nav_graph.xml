@@ -3,13 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/categoryFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.brogrammers.jielian.fragments.HomeFragment"
         android:label="Jielian"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.brogrammers.jielian.fragments.CartFragment"
@@ -27,7 +31,7 @@
         tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.brogrammers.jielian.CategoryFragment"
-        android:label="fragment_category"
+        android:name="com.brogrammers.jielian.fragments.CategoryFragment"
+        android:label="Categories"
         tools:layout="@layout/fragment_category" />
 </navigation>

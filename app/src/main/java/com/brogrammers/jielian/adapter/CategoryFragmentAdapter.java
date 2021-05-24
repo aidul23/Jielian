@@ -1,8 +1,10 @@
-package com.brogrammers.jielian.fragments;
+package com.brogrammers.jielian.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import com.brogrammers.jielian.fragments.FoodListFragment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -16,11 +18,11 @@ public class CategoryFragmentAdapter extends FragmentStateAdapter {
     @NotNull
     @Override
     public Fragment createFragment(int position) {
-        return null;
+        return new FoodListFragment();
     }
 
     @Override
     public int getItemCount() {
-        return 100;
+        return 3;
     }
 }
