@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-       navController = Navigation.findNavController(view);
+        navController = Navigation.findNavController(view);
 
         List<SlideModel> slideModels = new ArrayList<>();
         slideModels.add(new SlideModel("https://image.shutterstock.com/image-photo/various-asian-meals-on-rustic-260nw-1125066479.jpg"));
@@ -138,8 +138,9 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
     }
 
     @Override
-    public void onClick(String title, String type) {
-        model.getSelectedItemTitleLiveData().postValue(title);
-//        navController.navigate(HomeFragmentDirections.actionHomeFragmentToCategoryFragment());
+    public void onClick(CategoryItem categoryItem, String type) {
+        if (type.equals(Constant.LAYOUT_TYPE_CATEGORY)) {
+            navController.navigate(HomeFragmentDirections.actionHomeFragmentToCategoryFragment());
+        }
     }
 }

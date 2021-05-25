@@ -8,12 +8,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.brogrammers.jielian.adapter.CommonAdapter;
 import com.brogrammers.jielian.clicklisteners.OnItemClickListener;
 import com.brogrammers.jielian.constants.Constant;
 import com.brogrammers.jielian.databinding.FragmentFoodlistBinding;
 import com.brogrammers.jielian.model.CategoryItem;
+import com.brogrammers.jielian.viewmodel.MainActivityViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,12 +24,16 @@ import java.util.List;
 
 public class FoodListFragment extends Fragment implements OnItemClickListener {
 
+
+    private MainActivityViewModel model;
+
     private FragmentFoodlistBinding binding;
     private CommonAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        model = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
     }
 
     @Override
@@ -58,7 +64,7 @@ public class FoodListFragment extends Fragment implements OnItemClickListener {
     }
 
     @Override
-    public void onClick(String title, String type) {
-
+    public void onClick(CategoryItem categoryItem, String type) {
+        model.getCategoryItemMutableLiveData().postValue(categoryItem);
     }
 }

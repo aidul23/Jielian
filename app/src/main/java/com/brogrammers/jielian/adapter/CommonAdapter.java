@@ -86,7 +86,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.CommonView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClickListener.onClick(categoryItems.get(position).getTitle(), type);
+                onItemClickListener.onClick(categoryItems.get(position), type);
             }
         });
 

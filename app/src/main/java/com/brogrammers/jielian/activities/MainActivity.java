@@ -1,17 +1,15 @@
 package com.brogrammers.jielian.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -20,78 +18,67 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.brogrammers.jielian.R;
+import com.brogrammers.jielian.databinding.ActivityMainBinding;
+import com.brogrammers.jielian.model.CategoryItem;
+import com.brogrammers.jielian.utility.StringUtility;
 import com.brogrammers.jielian.viewmodel.MainActivityViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.imageview.ShapeableImageView;
-import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.shape.CornerFamily;
+import com.like.LikeButton;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
     private static final String TAG = "MainActivity";
-    NavController navController;
-    Toolbar toolbar;
-    DrawerLayout drawerLayout;
-    AppBarConfiguration appBarConfiguration;
-    BottomSheetBehavior bottomSheetBehavior;
-    ConstraintLayout bottomSheet;
+
+    private ActivityMainBinding binding;
+
+    private NavController navController;
+
+    private BottomSheetBehavior bottomSheetBehavior;
+
+    private MainActivityViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        toolbar = findViewById(R.id.toolbarId);
-        bottomSheet = findViewById(R.id.bottom_sheet);
+        model = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
+        setSupportActionBar(binding.toolbarId);
 
         Set<Integer> topLevelDestinations = new HashSet<>();
         topLevelDestinations.add(R.id.homeFragment);
 
-        appBarConfiguration = new AppBarConfiguration.Builder(topLevelDestinations)
-                .setOpenableLayout(drawerLayout)
-                .build();
-
-
-        setSupportActionBar(toolbar);
-        drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navView = findViewById(R.id.navigation_drawer_view);
+        new AppBarConfiguration.Builder(topLevelDestinations).setOpenableLayout(binding.drawerLayout);
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
-        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout);
+        NavigationUI.setupActionBarWithNavController(this, navController, binding.drawerLayout);
 
-        NavigationUI.setupWithNavController(navView, navController);
+        NavigationUI.setupWithNavController(binding.navigationDrawerView, navController);
 
-        MainActivityViewModel model = new ViewModelProvider(this).get(MainActivityViewModel.class);
-
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.getRoot().findViewById(R.id.bottom_sheet));
         bottomSheetBehavior.setPeekHeight(0);
+        bottomSheetBehavior.setHideable(true);
+        bottomSheetBehavior.addBottomSheetCallback(callback);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+    }
 
-        ShapeableImageView image = findViewById(R.id.food_item_image);
-        image.setShapeAppearanceModel(image.getShapeAppearanceModel()
-        .toBuilder()
-        .setTopLeftCorner(CornerFamily.ROUNDED,30)
-        .setTopRightCorner(CornerFamily.ROUNDED,30)
-        .build());
-
-        model.getSelectedItemTitleLiveData().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                if (s != null) {
-                    if(bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED){
-                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                        bottomSheetBehavior.setHideable(true);
-                    }else{
-
-                    }
-                }
-            }
-        });
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        findViewById(R.id.item_quantity_increase).setOnClickListener(this);
+        findViewById(R.id.item_quantity_decrease).setOnClickListener(this);
+        findViewById(R.id.add_to_cart_button).setOnClickListener(this);
+        observeSelectedItemAndChangeShape();
     }
 
     //menu option
@@ -112,8 +99,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
+        } else if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         } else {
             super.onBackPressed();
         }
@@ -123,7 +112,85 @@ public class MainActivity extends AppCompatActivity {
     //toolbar back button
     @Override
     public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(navController, drawerLayout);
+        return NavigationUI.navigateUp(navController, binding.drawerLayout);
     }
 
+    private void observeSelectedItemAndChangeShape() {
+
+        ShapeableImageView foodItemImage = findViewById(R.id.food_item_image);
+        TextView foodItemName = findViewById(R.id.food_item_name);
+        TextView foodItemPrice = findViewById(R.id.food_item_price);
+        TextView foodItemDescription = findViewById(R.id.food_item_description);
+        TextView foodItemQuantity = findViewById(R.id.food_item_quantity);
+
+        foodItemImage.setShapeAppearanceModel(foodItemImage.getShapeAppearanceModel()
+                .toBuilder()
+                .setTopLeftCorner(CornerFamily.ROUNDED, 30)
+                .setTopRightCorner(CornerFamily.ROUNDED, 30)
+                .build());
+
+
+        model.getCategoryItemMutableLiveData().observe(this, new Observer<CategoryItem>() {
+            @Override
+            public void onChanged(CategoryItem categoryItem) {
+
+                if (categoryItem != null) {
+
+                    if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        bottomSheetBehavior.setHideable(true);
+
+                        foodItemName.setText(categoryItem.getTitle());
+                        foodItemPrice.setText(StringUtility.getFormattedString(categoryItem.getPrice()));
+                        foodItemDescription.setText((categoryItem.getDescription()));
+                    } else {
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    }
+                }
+
+            }
+        });
+
+        model.getTotalQuantity().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                if (integer != null) {
+                    foodItemQuantity.setText(String.valueOf(integer));
+                }
+            }
+        });
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.item_quantity_increase:
+                model.increaseQuantity();
+                break;
+            case R.id.item_quantity_decrease:
+                model.decreaseQuantity();
+                break;
+            case R.id.add_to_cart_button:
+                break;
+        }
+    }
+
+    private final BottomSheetBehavior.BottomSheetCallback callback = new BottomSheetBehavior.BottomSheetCallback() {
+        @Override
+        public void onStateChanged(@NonNull @NotNull View bottomSheet, int newState) {
+            if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+                LikeButton favoriteButton = findViewById(R.id.favorite_button);
+                if (favoriteButton.isLiked()) {
+                    favoriteButton.setLiked(false);
+                }
+            }
+        }
+
+        @Override
+        public void onSlide(@NonNull @NotNull View bottomSheet, float slideOffset) {
+
+        }
+    };
 }
