@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
@@ -20,7 +21,10 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.brogrammers.jielian.R;
 import com.brogrammers.jielian.viewmodel.MainActivityViewModel;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.shape.CornerFamily;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     AppBarConfiguration appBarConfiguration;
+    BottomSheetBehavior bottomSheetBehavior;
+    ConstraintLayout bottomSheet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbarId);
+        bottomSheet = findViewById(R.id.bottom_sheet);
+
 
         Set<Integer> topLevelDestinations = new HashSet<>();
         topLevelDestinations.add(R.id.homeFragment);
@@ -59,11 +67,27 @@ public class MainActivity extends AppCompatActivity {
 
         MainActivityViewModel model = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        bottomSheetBehavior.setPeekHeight(0);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+        ShapeableImageView image = findViewById(R.id.food_item_image);
+        image.setShapeAppearanceModel(image.getShapeAppearanceModel()
+        .toBuilder()
+        .setTopLeftCorner(CornerFamily.ROUNDED,30)
+        .setTopRightCorner(CornerFamily.ROUNDED,30)
+        .build());
+
         model.getSelectedItemTitleLiveData().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 if (s != null) {
-                    Log.d(TAG, "onChanged: " + s);
+                    if(bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED){
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        bottomSheetBehavior.setHideable(true);
+                    }else{
+
+                    }
                 }
             }
         });

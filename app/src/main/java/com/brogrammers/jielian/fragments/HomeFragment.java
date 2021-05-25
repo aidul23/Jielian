@@ -139,7 +139,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
 
     @Override
     public void onClick(String title, String type) {
-        //model.getSelectedItemTitleLiveData().postValue(title);
-        navController.navigate(HomeFragmentDirections.actionHomeFragmentToCategoryFragment());
+        model.getSelectedItemTitleLiveData().postValue(title);
+//        navController.navigate(HomeFragmentDirections.actionHomeFragmentToCategoryFragment());
     }
 }
