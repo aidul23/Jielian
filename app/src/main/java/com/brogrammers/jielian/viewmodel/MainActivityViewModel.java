@@ -4,6 +4,10 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.brogrammers.jielian.model.CategoryItem;
+import com.brogrammers.jielian.model.OrderItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivityViewModel extends ViewModel {
 
@@ -11,9 +15,10 @@ public class MainActivityViewModel extends ViewModel {
 
     public MainActivityViewModel() {
         totalQuantity.setValue(1);
+        orderItemLiveData.setValue(new ArrayList<>());
     }
 
-    private final MutableLiveData<CategoryItem>  categoryItemMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<CategoryItem> categoryItemMutableLiveData = new MutableLiveData<>();
 
     public MutableLiveData<CategoryItem> getCategoryItemMutableLiveData() {
         return categoryItemMutableLiveData;
@@ -46,5 +51,11 @@ public class MainActivityViewModel extends ViewModel {
 
     public MutableLiveData<Integer> getTotalQuantity() {
         return totalQuantity;
+    }
+
+    private MutableLiveData<List<OrderItem>> orderItemLiveData = new MutableLiveData<>();
+
+    public MutableLiveData<List<OrderItem>> getOrderItemLiveData() {
+        return orderItemLiveData;
     }
 }

@@ -5,7 +5,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +22,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.brogrammers.jielian.R;
 import com.brogrammers.jielian.databinding.ActivityMainBinding;
 import com.brogrammers.jielian.model.CategoryItem;
+import com.brogrammers.jielian.model.OrderItem;
 import com.brogrammers.jielian.utility.StringUtility;
 import com.brogrammers.jielian.viewmodel.MainActivityViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -122,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView foodItemPrice = findViewById(R.id.food_item_price);
         TextView foodItemDescription = findViewById(R.id.food_item_description);
         TextView foodItemQuantity = findViewById(R.id.food_item_quantity);
+        Button addToCartButton = findViewById(R.id.add_to_cart_button);
 
         foodItemImage.setShapeAppearanceModel(foodItemImage.getShapeAppearanceModel()
                 .toBuilder()
@@ -146,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     } else {
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                     }
+
                 }
 
             }
@@ -155,7 +160,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onChanged(Integer integer) {
                 if (integer != null) {
+
                     foodItemQuantity.setText(String.valueOf(integer));
+
+                    if (integer == 0) {
+                        addToCartButton.setText("Remove from cart");
+                        foodItemQuantity.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                        addToCartButton.setOnClickListener(removeFromCartButtonClickListener);
+                    } else {
+                        addToCartButton.setText("Add to cart");
+                        foodItemQuantity.setTextColor(getResources().getColor(android.R.color.background_dark));
+                        addToCartButton.setOnClickListener(addToCartButtonClickListener);
+                    }
+
                 }
             }
         });
@@ -172,25 +189,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.item_quantity_decrease:
                 model.decreaseQuantity();
                 break;
-            case R.id.add_to_cart_button:
-                break;
         }
     }
 
+    private void resetQuantityAndFavoriteButton() {
+        LikeButton favoriteButton = findViewById(R.id.favorite_button);
+        if (favoriteButton.isLiked()) {
+            favoriteButton.setLiked(false);
+        }
+        model.getTotalQuantity().postValue(1);
+    }
+
+    // listener for the bottom sheet
     private final BottomSheetBehavior.BottomSheetCallback callback = new BottomSheetBehavior.BottomSheetCallback() {
         @Override
         public void onStateChanged(@NonNull @NotNull View bottomSheet, int newState) {
-            if (newState == BottomSheetBehavior.STATE_DRAGGING) {
-                LikeButton favoriteButton = findViewById(R.id.favorite_button);
-                if (favoriteButton.isLiked()) {
-                    favoriteButton.setLiked(false);
-                }
+
+            // if bottom sheet is collapsed then reset the quantity to 1 and favorite button to default state
+
+            if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                resetQuantityAndFavoriteButton();
             }
         }
 
         @Override
         public void onSlide(@NonNull @NotNull View bottomSheet, float slideOffset) {
 
+        }
+    };
+
+    private final View.OnClickListener addToCartButtonClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            // add to cart
+            CategoryItem categoryItem = model.getCategoryItemMutableLiveData().getValue();
+            int itemQuantity = model.getTotalQuantity().getValue();
+
+            model.getOrderItemLiveData().getValue().add(
+                    new OrderItem(categoryItem.getTitle(), categoryItem.getPrice(), itemQuantity)
+            );
+        }
+    };
+
+    private final View.OnClickListener removeFromCartButtonClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            // remove to cart
+            //CategoryItem categoryItem = model.getCategoryItemMutableLiveData().getValue();
         }
     };
 }
