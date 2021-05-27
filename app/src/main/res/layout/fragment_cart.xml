@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f9f9f9"
     tools:context=".fragments.CartFragment">
 
 
@@ -11,10 +12,8 @@
         android:id="@+id/order_item_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
+        android:background="@android:color/white"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:background="@android:color/white"
         android:orientation="horizontal"
         android:padding="8dp"
         app:layout_constraintBottom_toTopOf="@+id/proceed_and_address_layout"
@@ -68,6 +68,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/subtotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -77,13 +78,14 @@
                 tools:text="Tk 250" />
 
             <TextView
+                android:id="@+id/delivery_charge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:textSize="16sp"
-                tools:text="Tk 19" />
+                android:text="Tk 40"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -113,6 +115,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
+            android:id="@+id/total_cost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

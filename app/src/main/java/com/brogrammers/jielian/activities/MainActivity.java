@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         foodItemName.setText(categoryItem.getTitle());
                         foodItemPrice.setText(StringUtility.getFormattedString(categoryItem.getPrice()));
+                        foodItemDescription.setVisibility(View.VISIBLE);
                         foodItemDescription.setText((categoryItem.getDescription()));
                     } else {
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -164,6 +165,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
 
+            }
+        });
+
+        model.getOrderItemMutableLiveData().observe(this, new Observer<OrderItem>() {
+            @Override
+            public void onChanged(OrderItem orderItem) {
+                if (orderItem != null) {
+
+                    model.getTotalQuantity().setValue(orderItem.getItemQuantity());
+
+                    if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        bottomSheetBehavior.setHideable(true);
+
+                        foodItemName.setText(orderItem.getItemName());
+                        foodItemPrice.setText(StringUtility.getFormattedString(orderItem.getItemPrice()));
+                        foodItemQuantity.setText(String.valueOf(orderItem.getItemQuantity()));
+                        foodItemDescription.setVisibility(View.GONE);
+                    } else {
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    }
+
+                }
             }
         });
 
@@ -234,11 +258,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onClick(View v) {
             // add to cart
             CategoryItem categoryItem = model.getCategoryItemMutableLiveData().getValue();
+
             int itemQuantity = model.getTotalQuantity().getValue();
+            int cost = categoryItem.getPrice() * itemQuantity;
 
             model.getOrderItemLiveData().getValue().add(
-                    new OrderItem(categoryItem.getTitle(), categoryItem.getPrice(), itemQuantity)
+                    new OrderItem(categoryItem.getTitle(), cost, itemQuantity)
             );
+
+            model.increaseCost(cost);
+
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+            Toast.makeText(MainActivity.this, categoryItem.getTitle() + " is added to cart", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -246,7 +278,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onClick(View v) {
             // remove to cart
-            //CategoryItem categoryItem = model.getCategoryItemMutableLiveData().getValue();
+            CategoryItem categoryItem = model.getCategoryItemMutableLiveData().getValue();
+
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+            Toast.makeText(MainActivity.this, categoryItem.getTitle() + " is removed from cart", Toast.LENGTH_SHORT).show();
         }
     };
 }

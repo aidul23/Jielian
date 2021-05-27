@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.brogrammers.jielian.R;
+import com.brogrammers.jielian.clicklisteners.CartItemClickListener;
 import com.brogrammers.jielian.model.OrderItem;
 import com.brogrammers.jielian.utility.StringUtility;
 
@@ -17,11 +18,17 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
-
+    private static final String TAG = "CartAdapter";
     private final List<OrderItem> orderItems;
 
     public CartAdapter(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    private CartItemClickListener cartItemClickListener;
+
+    public void setCartItemClickListener(CartItemClickListener cartItemClickListener) {
+        this.cartItemClickListener = cartItemClickListener;
     }
 
     @NonNull
@@ -37,6 +44,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.foodItemName.setText(orderItems.get(position).getItemName());
         holder.foodItemPrice.setText(StringUtility.getFormattedString(orderItems.get(position).getItemPrice()));
         holder.foodItemQuantity.setText("" + orderItems.get(position).getItemQuantity());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cartItemClickListener.onClick(orderItems.get(position));
+            }
+        });
     }
 
     @Override
