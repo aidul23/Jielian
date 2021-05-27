@@ -48,15 +48,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private MainActivityViewModel model;
 
-    private static int cart_count=0;
+    private static int cart_count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        cart_count = 2;
-        invalidateOptionsMenu();
+//        cart_count = 2;
+//        invalidateOptionsMenu();
 
         model = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.item_quantity_decrease).setOnClickListener(this);
         findViewById(R.id.add_to_cart_button).setOnClickListener(this);
         observeSelectedItemAndChangeShape();
+        model.getTotalOrderQuantity().observe(this, orderTotalQuantityObserver);
     }
 
     //menu option
@@ -94,12 +95,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.option_menu, menu);
-
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem menuItem = menu.findItem(R.id.cartFragment);
-        menuItem.setIcon(Converter.convertLayoutToImage(MainActivity.this,cart_count,R.drawable.shopping_cart));
-//        MenuItem menuItem2 = menu.findItem(R.id.notification_action);
-//        menuItem2.setIcon(Converter.convertLayoutToImage(MainActivity.this,2,R.drawable.ic_notifications_white_24dp));
+        menuItem.setIcon(Converter.convertLayoutToImage(MainActivity.this, cart_count, R.drawable.shopping_cart));
         return true;
     }
 
@@ -241,7 +238,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onStateChanged(@NonNull @NotNull View bottomSheet, int newState) {
 
             // if bottom sheet is collapsed then reset the quantity to 1 and favorite button to default state
-
             if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
                 resetQuantityAndFavoriteButton();
             }
@@ -266,6 +262,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     new OrderItem(categoryItem.getTitle(), cost, itemQuantity)
             );
 
+            model.getTotalOrderQuantity().setValue(
+                    model.getTotalOrderQuantity().getValue() + itemQuantity
+            );
+
             model.increaseCost(cost);
 
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -283,6 +283,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
             Toast.makeText(MainActivity.this, categoryItem.getTitle() + " is removed from cart", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private final Observer<Integer> orderTotalQuantityObserver = new Observer<Integer>() {
+        @Override
+        public void onChanged(Integer integer) {
+            if (integer != null && integer > 0) {
+                cart_count = integer;
+                invalidateOptionsMenu();
+            }
         }
     };
 }

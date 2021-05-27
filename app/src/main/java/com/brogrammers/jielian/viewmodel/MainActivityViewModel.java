@@ -14,6 +14,9 @@ public class MainActivityViewModel extends ViewModel {
     // total quantity of individual item
     private MutableLiveData<Integer> totalQuantity = new MutableLiveData<>();
 
+    // total items in a cart
+    private MutableLiveData<Integer> totalOrderQuantity = new MutableLiveData<>();
+
     // total cost
     private MutableLiveData<Integer> totalCost = new MutableLiveData<>();
 
@@ -27,6 +30,7 @@ public class MainActivityViewModel extends ViewModel {
     private MutableLiveData<List<OrderItem>> orderItemLiveData = new MutableLiveData<>();
 
     public MainActivityViewModel() {
+        totalOrderQuantity.setValue(0);
         totalCost.setValue(0);
         totalQuantity.setValue(1);
         orderItemLiveData.setValue(new ArrayList<>());
@@ -51,6 +55,10 @@ public class MainActivityViewModel extends ViewModel {
 
             totalQuantity.setValue(currentValue);
 
+            totalOrderQuantity.setValue(
+                    totalOrderQuantity.getValue() + 1
+            );
+
 //            currentCost += (categoryItemMutableLiveData.getValue().getPrice() * currentValue);
 //
 //            totalCost.setValue(currentCost);
@@ -69,6 +77,10 @@ public class MainActivityViewModel extends ViewModel {
             currentValue -= 1;
 
             totalQuantity.setValue(currentValue);
+
+            totalOrderQuantity.setValue(
+                    totalOrderQuantity.getValue() - 1
+            );
 
 //            currentCost -= (categoryItemMutableLiveData.getValue().getPrice() * currentValue);
 //
@@ -94,12 +106,18 @@ public class MainActivityViewModel extends ViewModel {
         );
     }
 
+    // individual item quantity
     public MutableLiveData<Integer> getTotalQuantity() {
         return totalQuantity;
     }
 
     public MutableLiveData<List<OrderItem>> getOrderItemLiveData() {
         return orderItemLiveData;
+    }
+
+    // total order quantity
+    public MutableLiveData<Integer> getTotalOrderQuantity() {
+        return totalOrderQuantity;
     }
 
     public MutableLiveData<Integer> getTotalCost() {

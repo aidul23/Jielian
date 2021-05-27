@@ -23,8 +23,7 @@ public class Converter {
         if (count == 0) {
             textView.setVisibility(View.GONE);
         } else {
-
-            textView.setText("" + count);
+            textView.setText(String.valueOf(count));
         }
 
         view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
