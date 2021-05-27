@@ -19,6 +19,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.brogrammers.jielian.Converter;
 import com.brogrammers.jielian.R;
 import com.brogrammers.jielian.databinding.ActivityMainBinding;
 import com.brogrammers.jielian.model.CategoryItem;
@@ -47,11 +48,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private MainActivityViewModel model;
 
+    private static int cart_count=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        cart_count = 2;
+        invalidateOptionsMenu();
 
         model = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
@@ -89,6 +94,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.option_menu, menu);
+
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem menuItem = menu.findItem(R.id.cartFragment);
+        menuItem.setIcon(Converter.convertLayoutToImage(MainActivity.this,cart_count,R.drawable.shopping_cart));
+//        MenuItem menuItem2 = menu.findItem(R.id.notification_action);
+//        menuItem2.setIcon(Converter.convertLayoutToImage(MainActivity.this,2,R.drawable.ic_notifications_white_24dp));
         return true;
     }
 
