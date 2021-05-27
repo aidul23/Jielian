@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.brogrammers.jielian.adapter.CategoryFragmentAdapter;
 import com.brogrammers.jielian.databinding.FragmentCategoryBinding;
@@ -19,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public class CategoryFragment extends Fragment {
 
     private FragmentCategoryBinding binding;
-
+    private NavController navController;
     private static final String[] titles = {"Burger", "Biriyani", "Indian"};
 
     @Override
@@ -33,6 +35,8 @@ public class CategoryFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentCategoryBinding.inflate(getLayoutInflater());
         return binding.getRoot();
+
+
     }
 
     @Override
@@ -40,12 +44,22 @@ public class CategoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         binding.viewPager2.setAdapter(new CategoryFragmentAdapter(this));
 
+        navController = Navigation.findNavController(view);
+
         new TabLayoutMediator(binding.restaurantTabLayout, binding.viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull @NotNull TabLayout.Tab tab, int position) {
                 tab.setText(titles[position]);
             }
         }).attach();
+
+        binding.viewCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(CategoryFragmentDirections.actionCategoryFragmentToCartFragment());
+            }
+        });
     }
+
 
 }

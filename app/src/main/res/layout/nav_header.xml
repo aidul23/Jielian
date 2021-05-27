@@ -6,7 +6,6 @@
     android:layout_height="200dp"
     android:gravity="bottom"
     android:padding="16dp"
-    android:background="@drawable/nav_header"
     android:orientation="vertical">
 
     <ImageView
