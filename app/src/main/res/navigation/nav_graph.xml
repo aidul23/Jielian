@@ -44,12 +44,12 @@
         android:label="Profile"
         tools:layout="@layout/fragment_profile">
         <action
-            android:id="@+id/action_profileFragment2_to_editUserProfileFragment"
+            android:id="@+id/action_profileFragment_to_editUserProfileFragment"
             app:destination="@id/editUserProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/editUserProfileFragment"
         android:name="com.brogrammers.jielian.EditUserProfileFragment"
-        android:label="fragment_edit_user_profile"
+        android:label="Edit"
         tools:layout="@layout/fragment_edit_user_profile" />
 </navigation>
