@@ -1,4 +1,4 @@
-package com.brogrammers.jielian;
+package com.brogrammers.jielian.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
