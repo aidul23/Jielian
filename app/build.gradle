@@ -81,4 +81,7 @@ dependencies {
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.3'
 
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
+
+    //timelineView
+    implementation "com.github.qapqap:TimelineView:v1.6"
 }
