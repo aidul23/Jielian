@@ -10,6 +10,10 @@ public class Constant {
 
     public static String LAYOUT_TYPE_ITEM_LARGE2 = "layout-type-item-large2";
 
+    public static String LAYOUT_TYPE_ORDER  = "layout-type-order";
+
+    public static String LAYOUT_TYPE_ORDER_DETAIL = "layout-type-order-detail";
+
     public static String USER_EDIT_SELECTION = "user-edit-selection";
 
     public static int USER_NAME_VALUE = 0;

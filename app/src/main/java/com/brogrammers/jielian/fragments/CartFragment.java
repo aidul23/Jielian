@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.brogrammers.jielian.R;
 import com.brogrammers.jielian.adapter.CartAdapter;
 import com.brogrammers.jielian.clicklisteners.CartItemClickListener;
+import com.brogrammers.jielian.constants.Constant;
 import com.brogrammers.jielian.databinding.FragmentCartBinding;
 import com.brogrammers.jielian.itemdecoration.CustomItemDecoration;
 import com.brogrammers.jielian.model.OrderItem;
@@ -57,7 +58,7 @@ public class CartFragment extends Fragment {
             public void onChanged(List<OrderItem> orderItems) {
                 if (orderItems != null && orderItems.size() > 0) {
 
-                    adapter = new CartAdapter(orderItems);
+                    adapter = new CartAdapter(orderItems, Constant.LAYOUT_TYPE_ORDER_DETAIL);
 
                     binding.orderItemRecyclerview.setHasFixedSize(true);
 

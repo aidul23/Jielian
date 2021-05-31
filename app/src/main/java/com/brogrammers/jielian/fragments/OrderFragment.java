@@ -8,8 +8,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.brogrammers.jielian.adapter.OrderAdapter;
+import com.brogrammers.jielian.clicklisteners.OrderItemClickListener;
 import com.brogrammers.jielian.databinding.FragmentOrderBinding;
 import com.brogrammers.jielian.model.Order;
 
@@ -21,6 +24,8 @@ import java.util.List;
 public class OrderFragment extends Fragment {
 
     private FragmentOrderBinding binding;
+
+    private NavController navController;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,11 +45,23 @@ public class OrderFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        navController = Navigation.findNavController(view);
+
+        OrderAdapter orderAdapter = new OrderAdapter(getDummyOrder());
+
         binding.orderHistoryRecyclerview.setHasFixedSize(true);
         binding.orderHistoryRecyclerview.setAdapter(
-                new OrderAdapter(getDummyOrder())
+                orderAdapter
         );
+
+        orderAdapter.setOrderItemClickListener(new OrderItemClickListener() {
+            @Override
+            public void onClick() {
+                navController.navigate(OrderFragmentDirections.actionOrderFragmentToOrderDetailsFragment());
+            }
+        });
     }
+
 
     private List<Order> getDummyOrder() {
         List<Order> orders = new ArrayList<>();

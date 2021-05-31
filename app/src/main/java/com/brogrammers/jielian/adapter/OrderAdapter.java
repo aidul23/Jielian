@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.brogrammers.jielian.R;
+import com.brogrammers.jielian.clicklisteners.OrderItemClickListener;
 import com.brogrammers.jielian.model.Order;
 import com.brogrammers.jielian.utility.StringUtility;
 
@@ -19,6 +20,12 @@ import java.util.List;
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
 
     private final List<Order> orderList;
+
+    private OrderItemClickListener orderItemClickListener;
+
+    public void setOrderItemClickListener(OrderItemClickListener orderItemClickListener) {
+        this.orderItemClickListener = orderItemClickListener;
+    }
 
     public OrderAdapter(List<Order> orderList) {
         this.orderList = orderList;
@@ -37,6 +44,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.orderTotalCost.setText(StringUtility.getFormattedString(orderList.get(position).getOrderTotalCost()));
         holder.orderDateTime.setText(orderList.get(position).getOrderDateTime());
         holder.orderId.setText(orderList.get(position).getOrderId());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderItemClickListener.onClick();
+            }
+        });
     }
 
     @Override
