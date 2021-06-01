@@ -70,7 +70,7 @@ public class CartFragment extends Fragment {
             public void onChanged(List<OrderItem> orderItems) {
                 if (orderItems != null && orderItems.size() > 0) {
 
-                    adapter = new CartAdapter(orderItems, Constant.LAYOUT_TYPE_ORDER_DETAIL);
+                    adapter = new CartAdapter(orderItems, Constant.LAYOUT_TYPE_ORDER);
 
                     binding.orderItemRecyclerview.setHasFixedSize(true);
 
