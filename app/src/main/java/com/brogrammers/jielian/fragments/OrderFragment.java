@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.brogrammers.jielian.R;
 import com.brogrammers.jielian.adapter.OrderAdapter;
 import com.brogrammers.jielian.clicklisteners.OrderItemClickListener;
 import com.brogrammers.jielian.databinding.FragmentOrderBinding;
@@ -73,12 +74,13 @@ public class OrderFragment extends Fragment {
 
     private List<Order> getDummyOrder() {
         List<Order> orders = new ArrayList<>();
-        orders.add(new Order("#102391", "12th April, 12.30", 200));
-        orders.add(new Order("#102391", "12th April, 12.30", 200));
-        orders.add(new Order("#102391", "12th April, 12.30", 200));
-        orders.add(new Order("#102391", "12th April, 12.30", 200));
-        orders.add(new Order("#102391", "12th April, 12.30", 200));
-        orders.add(new Order("#102391", "12th April, 12.30", 200));
+        orders.add(new Order("#102391", "12th April, 12.30", getResources().getString(R.string.pickupAddress), getResources().getString(R.string.destinationAddress), "Delivered", 200));
+        orders.add(new Order("#102391", "12th April, 12.30", getResources().getString(R.string.pickupAddress), getResources().getString(R.string.destinationAddress), "Delivered", 200));
+        orders.add(new Order("#102391", "12th April, 12.30", getResources().getString(R.string.pickupAddress), getResources().getString(R.string.destinationAddress), "Delivered", 200));
+        orders.add(new Order("#102391", "12th April, 12.30", getResources().getString(R.string.pickupAddress), getResources().getString(R.string.destinationAddress), "Delivered", 200));
+        orders.add(new Order("#102391", "12th April, 12.30", getResources().getString(R.string.pickupAddress), getResources().getString(R.string.destinationAddress), "Delivered", 200));
+        orders.add(new Order("#102391", "12th April, 12.30", getResources().getString(R.string.pickupAddress), getResources().getString(R.string.destinationAddress), "Delivered", 200));
+
         return orders;
     }
 }

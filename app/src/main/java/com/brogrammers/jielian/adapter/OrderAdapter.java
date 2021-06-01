@@ -44,6 +44,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.orderTotalCost.setText(StringUtility.getFormattedString(orderList.get(position).getOrderTotalCost()));
         holder.orderDateTime.setText(orderList.get(position).getOrderDateTime());
         holder.orderId.setText(orderList.get(position).getOrderId());
+        holder.deliveryStatus.setText(orderList.get(position).getOrderStatus());
+        holder.pickupAddress.setText(orderList.get(position).getPickupAddress());
+        holder.destinationAddress.setText(orderList.get(position).getDestinationAddress());
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +63,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     static class OrderViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView orderId, orderDateTime, orderTotalCost;
+        private final TextView orderId, orderDateTime, orderTotalCost, pickupAddress, destinationAddress, deliveryStatus;
 
         public OrderViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -67,6 +71,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             orderId = itemView.findViewById(R.id.order_id);
             orderDateTime = itemView.findViewById(R.id.order_date_time);
             orderTotalCost = itemView.findViewById(R.id.order_total_cost);
+
+            pickupAddress = itemView.findViewById(R.id.pickup_point_address);
+            destinationAddress = itemView.findViewById(R.id.destination_address);
+            deliveryStatus = itemView.findViewById(R.id.delivery_status);
         }
     }
 }
