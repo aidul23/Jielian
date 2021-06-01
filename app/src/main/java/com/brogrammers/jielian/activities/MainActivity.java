@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -22,6 +24,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.brogrammers.jielian.Converter;
 import com.brogrammers.jielian.R;
 import com.brogrammers.jielian.databinding.ActivityMainBinding;
+import com.brogrammers.jielian.fragments.ProfileFragment;
 import com.brogrammers.jielian.model.CategoryItem;
 import com.brogrammers.jielian.model.OrderItem;
 import com.brogrammers.jielian.utility.StringUtility;
@@ -34,6 +37,7 @@ import com.like.LikeButton;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -49,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MainActivityViewModel model;
 
     private static int cart_count = 0;
+
+    ProfileFragment profileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,6 +2,8 @@ package com.brogrammers.jielian.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -10,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.brogrammers.jielian.R;
 import com.brogrammers.jielian.adapter.CartAdapter;
@@ -32,6 +36,7 @@ public class CartFragment extends Fragment {
     private FragmentCartBinding binding;
     private MainActivityViewModel model;
     private CartAdapter adapter;
+    private NavController navController;
 
     public CartFragment() {
         // Required empty public constructor
@@ -40,7 +45,14 @@ public class CartFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         model = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
     }
 
     @Override
@@ -75,6 +87,7 @@ public class CartFragment extends Fragment {
             }
         });
 
+
         return binding.getRoot();
     }
 
@@ -82,6 +95,7 @@ public class CartFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        navController = Navigation.findNavController(view);
         model.getTotalCost().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
@@ -91,6 +105,14 @@ public class CartFragment extends Fragment {
                 }
             }
         });
+
+        binding.placceOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(CartFragmentDirections.actionCartFragmentToMapFragment());
+            }
+        });
+
 
     }
 
