@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/pendingFragment">
+    <fragment
+        android:id="@+id/pendingFragment"
+        android:name="com.brogrammers.jielianrider.PendingFragment"
+        android:label="fragment_pending"
+        tools:layout="@layout/fragment_pending" />
+    <fragment
+        android:id="@+id/deliveredFragment"
+        android:name="com.brogrammers.jielianrider.DeliveredFragment"
+        android:label="fragment_delivered"
+        tools:layout="@layout/fragment_delivered" />
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.brogrammers.jielianrider.OrderDetailsFragment"
+        android:label="fragment_order_details"
+        tools:layout="@layout/fragment_order_details" />
+</navigation>
