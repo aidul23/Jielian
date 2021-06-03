@@ -1,4 +1,4 @@
-package com.brogrammers.jielianrider;
+package com.brogrammers.jielianrider.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.brogrammers.jielianrider.model.Order;
+import com.brogrammers.jielianrider.clicklistener.OrderItemClickListener;
+import com.brogrammers.jielianrider.R;
+import com.brogrammers.jielianrider.utility.StringUtility;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -45,7 +51,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                orderItemClickListener.onClick();
+                orderItemClickListener.onClick(orderList.get(position));
             }
         });
     }
