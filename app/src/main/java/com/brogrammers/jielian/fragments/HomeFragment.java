@@ -84,6 +84,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
 
         manager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         adapter = new CommonAdapter(getDummyItemList(), Constant.LAYOUT_TYPE_ITEM);
+        adapter.setOnItemClickListener(this);
 
         binding.itemRecyclerView2.setLayoutManager(manager);
         binding.itemRecyclerView2.setHasFixedSize(true);
@@ -98,6 +99,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
             }
         };
         adapter = new CommonAdapter(getDummyItemList2(), Constant.LAYOUT_TYPE_ITEM_LARGE2);
+        adapter.setOnItemClickListener(this);
 
         binding.itemRecyclerView3.setLayoutManager(manager);
         binding.itemRecyclerView3.setHasFixedSize(true);
@@ -141,6 +143,8 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
     public void onClick(CategoryItem categoryItem, String type) {
         if (type.equals(Constant.LAYOUT_TYPE_CATEGORY)) {
             navController.navigate(HomeFragmentDirections.actionHomeFragmentToCategoryFragment());
+        } else {
+            model.getCategoryItemMutableLiveData().postValue(categoryItem);
         }
     }
 }
