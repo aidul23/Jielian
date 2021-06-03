@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Jielian Rider</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="pickupAddress">GEC Circle, CDA Ave, Bata Gali, Chattogram 4000</string>
+    <string name="destinationAddress">805/B, JB Complex, CDA Avenue, GEC Mor, Chattogram 4000</string>
+</resources>
