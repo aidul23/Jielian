@@ -1,4 +1,4 @@
-package com.brogrammers.jielian;
+package com.brogrammers.jielian.helper;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.brogrammers.jielian.R;
 
 
 public class Converter {

@@ -1,4 +1,4 @@
-package com.brogrammers.jielianrider;
+package com.brogrammers.jielianrider.utility;
 
 public class StringUtility {
 

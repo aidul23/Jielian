@@ -6,17 +6,21 @@
     app:startDestination="@id/pendingFragment">
     <fragment
         android:id="@+id/pendingFragment"
-        android:name="com.brogrammers.jielianrider.PendingFragment"
+        android:name="com.brogrammers.jielianrider.fragment.PendingFragment"
         android:label="fragment_pending"
-        tools:layout="@layout/fragment_pending" />
+        tools:layout="@layout/fragment_pending" >
+        <action
+            android:id="@+id/action_pendingFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/deliveredFragment"
-        android:name="com.brogrammers.jielianrider.DeliveredFragment"
+        android:name="com.brogrammers.jielianrider.fragment.DeliveredFragment"
         android:label="fragment_delivered"
         tools:layout="@layout/fragment_delivered" />
     <fragment
         android:id="@+id/orderDetailsFragment"
-        android:name="com.brogrammers.jielianrider.OrderDetailsFragment"
+        android:name="com.brogrammers.jielianrider.fragment.OrderDetailsFragment"
         android:label="fragment_order_details"
         tools:layout="@layout/fragment_order_details" />
 </navigation>
