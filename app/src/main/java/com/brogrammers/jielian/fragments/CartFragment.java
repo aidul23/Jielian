@@ -96,6 +96,7 @@ public class CartFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         navController = Navigation.findNavController(view);
+
         model.getTotalCost().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
@@ -113,6 +114,15 @@ public class CartFragment extends Fragment {
             }
         });
 
+
+        binding.userAddressEditCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt(Constant.USER_EDIT_SELECTION, Constant.USER_ADDRESS_VALUE);
+                navController.navigate(R.id.editUserProfileFragment, bundle);
+            }
+        });
 
     }
 
