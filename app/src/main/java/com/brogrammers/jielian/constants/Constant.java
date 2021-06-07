@@ -16,6 +16,10 @@ public class Constant {
 
     public static String USER_EDIT_SELECTION = "user-edit-selection";
 
+    public static String BRANCH_ADDRESS_KEY = "branch-address-key";
+
+    public static String BRANCH_NAME_KEY = "branch-name-key";
+
     public static int USER_NAME_VALUE = 0;
 
     public static int USER_EMAIL_VALUE = 1;

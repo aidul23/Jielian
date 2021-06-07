@@ -7,6 +7,8 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
+import com.google.firebase.FirebaseApp;
+
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,6 +24,7 @@ public class MyApp extends Application implements LifecycleObserver {
     public void onCreate() {
         super.onCreate();
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
+        FirebaseApp.initializeApp(this);
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
