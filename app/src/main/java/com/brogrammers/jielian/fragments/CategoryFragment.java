@@ -29,7 +29,6 @@ public class CategoryFragment extends Fragment {
     private FragmentCategoryBinding binding;
     private NavController navController;
     private static final String[] titles = {"Burger", "Biriyani", "Indian"};
-
     private MainActivityViewModel model;
 
     @Override
