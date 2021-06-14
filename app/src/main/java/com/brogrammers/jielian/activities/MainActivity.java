@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         model = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
+
         setSupportActionBar(binding.toolbarId);
 
         Set<Integer> topLevelDestinations = new HashSet<>();

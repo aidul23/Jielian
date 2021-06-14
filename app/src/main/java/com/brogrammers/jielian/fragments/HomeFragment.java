@@ -61,6 +61,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
         binding.bannerViewpager.setPageTransformer(new MyPageTransformer());
 
         binding.bannerViewpager.setAdapter(new BannerAdapter());
+        binding.bannerViewpager.setOffscreenPageLimit(3);
 
         LinearLayoutManager manager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         adapter = new CommonAdapter(getDummyList(), Constant.LAYOUT_TYPE_CATEGORY);

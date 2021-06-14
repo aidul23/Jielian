@@ -26,6 +26,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.CommonView
 
     private static final int[] categoryImages =
             {R.drawable.biriyani, R.drawable.burger, R.drawable.chicken_fry, R.drawable.french_fries, R.drawable.pizza};
+    private static final int[] categoryIcon = {R.drawable.ic_burger_icon,R.drawable.ic_pizza_slice,R.drawable.ic_rice,R.drawable.ic_sandwich,R.drawable.ic_drinks};
 
     private final List<CategoryItem> categoryItems;
     private final String type;
@@ -72,11 +73,16 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.CommonView
     public void onBindViewHolder(@NonNull CommonAdapter.CommonViewHolder holder, int position) {
 
         holder.foodItemName.setText(categoryItems.get(position).getTitle());
-        holder.foodItemImage.setImageDrawable(ContextCompat.getDrawable(holder.itemView.getContext(), categoryImages[position]));
+
         // TODO: 23/05/2021 set image to foodItemImage with glide
 
+        if(type.equals(Constant.LAYOUT_TYPE_CATEGORY)){
+            holder.foodItemImage.setImageDrawable(ContextCompat.getDrawable(holder.itemView.getContext(), categoryIcon[position]));
+        }
+
         if (type.equals(Constant.LAYOUT_TYPE_ITEM)) {
-            // TODO: 24/05/2021 use currency formatter 
+            // TODO: 24/05/2021 use currency formatter
+            holder.foodItemImage.setImageDrawable(ContextCompat.getDrawable(holder.itemView.getContext(), categoryImages[position]));
             holder.foodItemPrice.setText(StringUtility.getFormattedString(categoryItems.get(position).getPrice()));
         } else if (type.equals(Constant.LAYOUT_TYPE_ITEM_LARGE) || type.equals(Constant.LAYOUT_TYPE_ITEM_LARGE2)) {
             holder.foodItemPrice.setText(StringUtility.getFormattedString(categoryItems.get(position).getPrice()));
