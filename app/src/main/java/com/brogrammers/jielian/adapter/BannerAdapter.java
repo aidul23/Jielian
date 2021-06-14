@@ -1,6 +1,5 @@
 package com.brogrammers.jielian.adapter;
 
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +21,9 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerView
 
     List<Banner> bannerList = new ArrayList();
 
-    public BannerAdapter(List<Banner> bannerList) {
-        this.bannerList = bannerList;
-    }
+//    public BannerAdapter(List<Banner> bannerList) {
+//        this.bannerList = bannerList;
+//    }
 
     @NonNull
     @Override
@@ -36,16 +35,16 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerView
 
     @Override
     public void onBindViewHolder(@NonNull BannerAdapter.BannerViewHolder holder, int position) {
-        Banner currentItem = bannerList.get(position);
-        holder.offerItemImage.setBackgroundResource(currentItem.getImage());
-        holder.limitedOffer.setText("Limited offer");
-        holder.offerQuantity.setText(currentItem.getOfferQuantity());
-        holder.offerLimit.setText(currentItem.getOfferLimit());
+//        Banner currentItem = bannerList.get(position);
+//        holder.offerItemImage.setBackgroundResource(currentItem.getImage());
+//        holder.limitedOffer.setText("Limited offer");
+//        holder.offerQuantity.setText(currentItem.getOfferQuantity());
+//        holder.offerLimit.setText(currentItem.getOfferLimit());
     }
 
     @Override
     public int getItemCount() {
-        return bannerList.size();
+        return 5;
     }
 
     static class BannerViewHolder extends RecyclerView.ViewHolder {

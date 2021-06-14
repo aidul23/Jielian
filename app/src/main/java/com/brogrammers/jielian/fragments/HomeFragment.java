@@ -12,7 +12,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.viewpager2.widget.MarginPageTransformer;
 
+import com.brogrammers.jielian.MyPageTransformer.MyPageTransformer;
+import com.brogrammers.jielian.adapter.BannerAdapter;
 import com.brogrammers.jielian.adapter.CommonAdapter;
 import com.brogrammers.jielian.clicklisteners.OnItemClickListener;
 import com.brogrammers.jielian.constants.Constant;
@@ -55,11 +58,9 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
 
         navController = Navigation.findNavController(view);
 
-        List<SlideModel> slideModels = new ArrayList<>();
-        slideModels.add(new SlideModel("https://image.shutterstock.com/image-photo/various-asian-meals-on-rustic-260nw-1125066479.jpg"));
-        slideModels.add(new SlideModel("https://image.shutterstock.com/image-photo/various-asian-meals-on-rustic-260nw-1075946798.jpg"));
-        slideModels.add(new SlideModel("https://image.shutterstock.com/image-photo/italian-food-background-pasta-meat-260nw-678135781.jpg"));
-        binding.homeImageSlider.setImageList(slideModels, true);
+        binding.bannerViewpager.setPageTransformer(new MyPageTransformer());
+
+        binding.bannerViewpager.setAdapter(new BannerAdapter());
 
         LinearLayoutManager manager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         adapter = new CommonAdapter(getDummyList(), Constant.LAYOUT_TYPE_CATEGORY);
@@ -89,21 +90,6 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
         binding.itemRecyclerView2.setLayoutManager(manager);
         binding.itemRecyclerView2.setHasFixedSize(true);
         binding.itemRecyclerView2.setAdapter(
-                adapter
-        );
-
-        manager = new LinearLayoutManager(requireContext()) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        adapter = new CommonAdapter(getDummyItemList2(), Constant.LAYOUT_TYPE_ITEM_LARGE2);
-        adapter.setOnItemClickListener(this);
-
-        binding.itemRecyclerView3.setLayoutManager(manager);
-        binding.itemRecyclerView3.setHasFixedSize(true);
-        binding.itemRecyclerView3.setAdapter(
                 adapter
         );
 

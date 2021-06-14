@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Set<Integer> topLevelDestinations = new HashSet<>();
         topLevelDestinations.add(R.id.homeFragment);
-//        topLevelDestinations.add(R.id.branchFragment);
 
         new AppBarConfiguration.Builder(topLevelDestinations).setOpenableLayout(binding.drawerLayout);
 

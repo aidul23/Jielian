@@ -1,6 +1,5 @@
 package com.brogrammers.jielian.fragments;
 
-import android.app.DownloadManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -116,7 +115,7 @@ public class MapFragment extends Fragment {
         binding.timelineListView.setHasFixedSize(true);
     }
 
-    private List<String> getDummyStatus(){
+    private List<String> getDummyStatus() {
         List<String> status = new ArrayList<>();
         status.add("Your order has been received");
         status.add("Your order is being ready");
@@ -125,7 +124,6 @@ public class MapFragment extends Fragment {
         status.add("Your order has reached your location");
         return status;
     }
-
 
 
 }
