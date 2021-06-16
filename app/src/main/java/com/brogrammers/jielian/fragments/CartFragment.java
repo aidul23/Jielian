@@ -107,7 +107,7 @@ public class CartFragment extends Fragment {
             }
         });
 
-        binding.placceOrder.setOnClickListener(new View.OnClickListener() {
+        binding.placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 navController.navigate(CartFragmentDirections.actionCartFragmentToMapFragment());
